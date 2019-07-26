@@ -18,8 +18,12 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.lightGreen,
       ),
+      //注册路由表
+      routes: {
+        "new_page": (context) => EchoRoute(),
+      },
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -98,6 +102,19 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.display1,
             ),
+            FlatButton(
+              child: Text("open new route"),
+              textColor: Colors.blue,
+              onPressed: () {
+                //导航到新路由
+//                Navigator.pushNamed(context, "new_page");
+                Navigator.of(context).pushNamed("new_page", arguments: "lalala");
+//                Navigator.push(context,
+//                    new MaterialPageRoute(builder: (context) {
+//                  return new NewRoute();
+//                }));
+              },
+            ),
           ],
         ),
       ),
@@ -106,6 +123,22 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+
+class EchoRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    //获取路由参数
+    var args=ModalRoute.of(context).settings.arguments;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("New route"),
+      ),
+      body: Center(
+        child: Text(args),
+      ),
     );
   }
 }
