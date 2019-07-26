@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:english_words/english_words.dart';
 
 void main() => runApp(MyApp());
 
@@ -108,20 +109,22 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 //导航到新路由
 //                Navigator.pushNamed(context, "new_page");
-                Navigator.of(context).pushNamed("new_page", arguments: "lalala");
+                Navigator.of(context)
+                    .pushNamed("new_page", arguments: "lalala");
 //                Navigator.push(context,
 //                    new MaterialPageRoute(builder: (context) {
 //                  return new NewRoute();
 //                }));
               },
             ),
+            RandomWordsWidget(),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
-        child: Icon(Icons.add),
+        child: Icon(Icons.favorite),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
@@ -131,7 +134,7 @@ class EchoRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //获取路由参数
-    var args=ModalRoute.of(context).settings.arguments;
+    var args = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(
         title: Text("New route"),
@@ -139,6 +142,19 @@ class EchoRoute extends StatelessWidget {
       body: Center(
         child: Text(args),
       ),
+    );
+  }
+}
+
+class RandomWordsWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // 生成随机字符串
+    final wordPair = new WordPair.random();
+    syllables('beautiful');
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: new Text(wordPair.toString()),
     );
   }
 }
